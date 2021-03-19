@@ -16,8 +16,9 @@ private:
 
   void initCamera(int cam_id, int sensor_mode, int width, int height, int fps);
 
-  std::map<int, std::unique_ptr<I2CCamera>> cameras;
+  void resetCameras();
 
+  std::map<int, std::unique_ptr<I2CCamera>> cameras;
   
 public:
   SensorManager(const std::array<int, NUM_CAMERAS>& i2c_devs,

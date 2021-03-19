@@ -35,6 +35,9 @@ SensorManager::SensorManager(const std::array<int, NUM_CAMERAS>& i2c_devs,
 #endif
   }
   initCameras();
+  usleep(1000);
+  std::cout << "Resetting sensors for synchronization" << std::endl;
+  resetCameras();
   usleep(10000);
   streamCameras();
 }
@@ -56,6 +59,12 @@ void SensorManager::initCameras()
       camera->setSecondary();
     first_cam_found = true;
   }
+}
+
+void SensorManager::resetCameras()
+{
+  for (const auto& camera : cameras)
+    camera.second->reset();
 }
 
 void SensorManager::streamCameras()
@@ -101,6 +110,5 @@ int SensorManager::getNumCameras() const
 SensorManager::~SensorManager()
 {
   std::cout << "Resetting sensors" << std::endl;
-  for (const auto& camera : cameras)
-    camera.second->reset();
+  resetCameras();
 }
