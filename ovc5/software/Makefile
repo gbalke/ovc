@@ -19,6 +19,9 @@ device_driver: libovc
 run_host: camera_host_driver
 	./camera_host_driver/build/ovc5_host_node
 
+run_device: camera_host_driver
+	./camera_device_driver/build/ovc5_driver
+
 clean:
 	cd libovc/build && make clean
 	cd camera_host_driver/build && make clean
